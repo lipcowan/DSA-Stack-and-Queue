@@ -63,7 +63,7 @@ class Stack {
   pop() {
     let head = this.list.head;
     this.list.remove(head.value);
-    return head.value;
+    return head.data;
   }
 
   peek() {
@@ -73,7 +73,7 @@ class Stack {
 
   isEmpty() {
     let head = this.list.head;
-    return head === null ? 'Empty' : 'Not empty';
+    return head === null;
   }
 
   display() {
@@ -101,12 +101,47 @@ const main = () => {
 
   // console.log(starTrek);
 
-  console.log(starTrek.peek());
+  // console.log(starTrek.peek());
   starTrek.pop();
-  console.log(starTrek.display());
+  // console.log(starTrek.display());
 };
 
 main();
 
 // console.log(starTrek.isEmpty())
 // console.log(emptyStack.isEmpty())
+
+function is_palindrome(s) {
+  s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
+  // Your code goes here
+  let stackA = new Stack();
+  let stackB = new Stack();
+
+  for (let i = 0; i <= s.length -1 ; i++) {
+    stackA.push(s[i]);
+  }
+  for (let i = s.length - 1; i >= 0; i--) {
+    stackB.push(s[i]);
+  }
+
+  // console.log(stackA.isEmpty());
+  while (!stackA.isEmpty()) {
+    let tempA = stackA.pop();
+    let tempB = stackB.pop();
+    // console.log(tempA, tempB);
+    if (tempA !== tempB) {
+      return false;
+    }
+    return true;
+  }
+  
+  console.log(stackA.display()); 
+  console.log(stackB.display()); 
+
+}
+
+// True, true, true, false
+console.log(is_palindrome("dad"));
+// console.log(is_palindrome("A man, a plan, a canal: Panama"));
+// console.log(is_palindrome("1001"));
+// console.log(is_palindrome("Tauhida"));
