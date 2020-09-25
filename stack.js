@@ -103,6 +103,7 @@ const main = () => {
 
   // console.log(starTrek.peek());
   starTrek.pop();
+  starTrek.display();
   // console.log(starTrek.display());
 };
 
@@ -115,33 +116,26 @@ function is_palindrome(s) {
   s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
   // Your code goes here
   let stackA = new Stack();
-  let stackB = new Stack();
+  let halfS = Math.floor((s.length)/2);
+//   console.log(halfS);
 
-  for (let i = 0; i <= s.length -1 ; i++) {
+  for (let i = 0; i < s.length; i ++) {
     stackA.push(s[i]);
   }
-  for (let i = s.length - 1; i >= 0; i--) {
-    stackB.push(s[i]);
+
+//   let tempA = stackA.display();
+
+  for (let i = 0; i < halfS; i ++) {
+      if (stackA.pop() !== s[i]) {
+          return false;
+      }
   }
 
-  // console.log(stackA.isEmpty());
-  while (!stackA.isEmpty()) {
-    let tempA = stackA.pop();
-    let tempB = stackB.pop();
-    // console.log(tempA, tempB);
-    if (tempA !== tempB) {
-      return false;
-    }
-    return true;
-  }
-  
-  console.log(stackA.display()); 
-  console.log(stackB.display()); 
-
+  return true;
 }
 
 // True, true, true, false
 console.log(is_palindrome("dad"));
-// console.log(is_palindrome("A man, a plan, a canal: Panama"));
-// console.log(is_palindrome("1001"));
-// console.log(is_palindrome("Tauhida"));
+console.log(is_palindrome("A man, a plan, a canal: Panama"));
+console.log(is_palindrome("1001"));
+console.log(is_palindrome("Tauhida"));
