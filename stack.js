@@ -76,7 +76,7 @@ class Stack {
     return head === null;
   }
 
-  display() {
+  toArray() {
     let head = this.list.head;
     let tempArr = []
     while (head !== null) {
@@ -103,7 +103,7 @@ const main = () => {
 
   // console.log(starTrek.peek());
   starTrek.pop();
-  starTrek.display();
+  starTrek.toArray();
   // console.log(starTrek.display());
 };
 
@@ -135,15 +135,48 @@ function is_palindrome(s) {
 }
 
 // True, true, true, false
-console.log(is_palindrome("dad"));
-console.log(is_palindrome("A man, a plan, a canal: Panama"));
-console.log(is_palindrome("1001"));
-console.log(is_palindrome("Tauhida"));
+// console.log(is_palindrome("dad"));
+// console.log(is_palindrome("A man, a plan, a canal: Panama"));
+// console.log(is_palindrome("1001"));
+// console.log(is_palindrome("Tauhida"));
 
-function matchParen(exp) {
-	let parenCount = 0;
-	
+function matchingKindsOfParens(open, close) {
+	return (open === '(' && close === ')') || 
+					(open === '[' && close === ']') ||
+					(open === '{' && close === '}')
 }
 
-console.log(matchParen('(2 + 2) - (1 + 1)'));
-console.log(matchParen('2 + 2) - (1 + 1)'));
+function matchParensInExpression(exp) {
+	let parenStack = new Stack();
+
+	for (let i=0; i<=exp.length -1; i++) {
+		let currChar = exp[i];
+		// console.log("matchParen -> currChar", currChar)
+		if (currChar === '(' || currChar === '[' || currChar === '{') {
+			parenStack.push([currChar, i])
+		}
+		if (currChar === ')' || currChar === ']' || currChar === '}') {
+			if (parenStack.isEmpty()) {
+				return (`Found "${currChar}" without a match at ` + i);
+			}
+			if (matchingKindsOfParens(parenStack.peek()[0], currChar)) {
+				parenStack.pop()
+			} else {
+				return (`Found "${currChar}" without a match at ` + i);
+			}
+		}
+	}
+	// console.log("Here", parenStack);
+	if (parenStack.isEmpty()) return true;
+	let problemParen = parenStack.pop();
+	return (`Found "${problemParen[0]}" without a match at ` + problemParen[1]);
+}
+
+console.log(matchParensInExpression('(2 + 2) - (1 + 1)'));
+console.log(matchParensInExpression('2 + 2) - (1 + 1)'));
+console.log(matchParensInExpression('(2 + 2 - (1 + 1)'));
+console.log(matchParensInExpression('([)]'));
+console.log(matchParensInExpression('()[]'));
+console.log(matchParensInExpression('{[]'));
+console.log(matchParensInExpression('2 + 2} - 1 + 1]'));
+
