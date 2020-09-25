@@ -78,21 +78,8 @@ class Stack {
     }
 }
 
-function display(list) {
-    // Start at the top
-    let currNode = list.top;
-    let result = '';
-    // console.log('currNode before: ', currNode.value);
-    while (currNode !== null) {
-      // console.log('currNode in while: ', currNode.value);
-      result +=
-        currNode.next === null ? `${currNode.value}` : `${currNode.value} -> `;
-      currNode = currNode.next;
-    }
-    return result;
-  }
 
-const starTrek = new Stack();
+const starTrek = [];
 
 const main = () => {
     starTrek.push('Kirk');
@@ -100,7 +87,7 @@ const main = () => {
     starTrek.push('McCoy');
     starTrek.push('Scotty');
 
-    console.log(display(starTrek));
+    console.log(starTrek);
 }
 
 main();
