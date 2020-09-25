@@ -139,3 +139,11 @@ console.log(is_palindrome("dad"));
 console.log(is_palindrome("A man, a plan, a canal: Panama"));
 console.log(is_palindrome("1001"));
 console.log(is_palindrome("Tauhida"));
+
+function matchParen(exp) {
+	let parenCount = 0;
+	
+}
+
+console.log(matchParen('(2 + 2) - (1 + 1)'));
+console.log(matchParen('2 + 2) - (1 + 1)'));
